@@ -11,11 +11,12 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 
-public class User {
-    private  int userId;
-    private String username;
-    private String password;
-    private  String role;
+public class Ticket {
+    private int ticketId;
+    private int eventId;
+    private int seatId;
+    private int customerId;
+    private String qrCode;
 
 
     @Override
@@ -23,5 +24,4 @@ public class User {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
-
 }

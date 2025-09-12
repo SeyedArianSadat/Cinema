@@ -6,16 +6,19 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+
 @SuperBuilder
 @NoArgsConstructor
 @Getter
 @Setter
 
-public class User {
-    private  int userId;
-    private String username;
-    private String password;
-    private  String role;
+public class Payment {
+    private int paymentId;
+    private int ticketId;
+    private double amount;
+    private LocalDate paymentDate;
+
 
 
     @Override
@@ -23,5 +26,4 @@ public class User {
         Gson gson = new Gson();
         return gson.toJson(this);
     }
-
 }

@@ -11,12 +11,10 @@ import lombok.experimental.SuperBuilder;
 @Getter
 @Setter
 
-public class User {
-    private  int userId;
-    private String username;
-    private String password;
-    private  String role;
-
+public class Artist {
+    private int artistId;
+    private int userId;
+    private String name;
 
     @Override
     public String toString() {
