@@ -16,6 +16,7 @@ public class Ticket {
     private Event event;
     private Customer customer;
     private Seat seat;
+    private  Payment payment;
 
 
     @Override
