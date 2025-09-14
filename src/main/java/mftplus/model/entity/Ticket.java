@@ -6,6 +6,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 @SuperBuilder
 @NoArgsConstructor
 @Getter
@@ -16,7 +19,8 @@ public class Ticket {
     private Event event;
     private Customer customer;
     private Seat seat;
-    private  Payment payment;
+    private Payment payment;
+    private LocalDateTime ticketTime;
 
 
     @Override

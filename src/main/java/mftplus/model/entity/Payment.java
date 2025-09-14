@@ -5,8 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
+import mftplus.model.entity.enums.PaymentType;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -15,10 +17,9 @@ import java.time.LocalDate;
 
 public class Payment {
     private int paymentId;
-    private  Seat seat;
-    private Ticket ticket;
     private double amount;
-    private LocalDate paymentDate;
+    private PaymentType paymentType;
+    private LocalDateTime paymentTime;
 
 
 

@@ -6,6 +6,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
+import java.util.List;
+
 @SuperBuilder
 @NoArgsConstructor
 @Getter
@@ -13,9 +15,11 @@ import lombok.experimental.SuperBuilder;
 
 public class Saloon {
     private int saloonId;
-    private Event event;
     private String name;
+    private String address;
     private int capacity;
+    private List<Seat> seatList;
+    private User manager;
 
 
     @Override

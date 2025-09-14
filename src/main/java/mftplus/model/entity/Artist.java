@@ -14,6 +14,11 @@ import lombok.experimental.SuperBuilder;
 public class Artist {
     private int artistId;
     private String name;
+    private String family;
+    private String category;
+    private String genre;
+
+
 
     @Override
     public String toString() {

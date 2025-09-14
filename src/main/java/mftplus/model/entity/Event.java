@@ -7,6 +7,8 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.List;
 
 @SuperBuilder
 @NoArgsConstructor
@@ -16,8 +18,11 @@ import java.time.LocalDate;
 public class Event {
     private int eventId;
     private String title;
-    private LocalDate eventDate;
-    private Artist artist;
+    private String description;
+    private LocalDateTime eventStartTime;
+    private LocalDateTime eventEndTime;
+    private float duration;
+    private List<Artist> artistList;
     private Saloon saloon;
 
     @Override

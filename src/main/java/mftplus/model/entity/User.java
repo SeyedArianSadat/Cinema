@@ -12,10 +12,10 @@ import lombok.experimental.SuperBuilder;
 @Setter
 
 public class User {
-    private  int userId;
+    private int userId;
     private String username;
     private String password;
-    private  String role;
+    private String role;
     private Customer customer;
 
 

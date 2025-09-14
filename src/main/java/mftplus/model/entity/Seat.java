@@ -15,9 +15,7 @@ public class Seat {
     private int seatId;
     private Saloon saloon;
     private String seatNumber;
-    private String isAvailable;
-    private Payment payment;
-
+    private boolean isAvailable;
 
     @Override
     public String toString() {
