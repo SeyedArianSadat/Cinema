@@ -7,7 +7,7 @@ import lombok.Setter;
 import lombok.experimental.SuperBuilder;
 import mftplus.model.entity.enums.PaymentType;
 
-import java.time.LocalDate;
+
 import java.time.LocalDateTime;
 
 @SuperBuilder
