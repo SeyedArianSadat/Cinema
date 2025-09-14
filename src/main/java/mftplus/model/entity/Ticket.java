@@ -13,10 +13,9 @@ import lombok.experimental.SuperBuilder;
 
 public class Ticket {
     private int ticketId;
-    private int eventId;
-    private int seatId;
-    private int customerId;
-    private String qrCode;
+    private Event event;
+    private Customer customer;
+    private Seat seat;
 
 
     @Override

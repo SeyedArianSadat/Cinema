@@ -13,7 +13,6 @@ import lombok.experimental.SuperBuilder;
 
 public class Artist {
     private int artistId;
-    private int userId;
     private String name;
 
     @Override

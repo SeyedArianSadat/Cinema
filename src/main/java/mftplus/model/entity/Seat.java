@@ -13,9 +13,10 @@ import lombok.experimental.SuperBuilder;
 
 public class Seat {
     private int seatId;
-    private int saloonId;
+    private Saloon saloon;
     private String seatNumber;
     private String isAvailable;
+    private Payment payment;
 
 
     @Override

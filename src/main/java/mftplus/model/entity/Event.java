@@ -17,8 +17,8 @@ public class Event {
     private int eventId;
     private String title;
     private LocalDate eventDate;
-    private int artistId;
-    private int saloonId;
+    private Artist artist;
+    private Saloon saloon;
 
     @Override
     public String toString() {

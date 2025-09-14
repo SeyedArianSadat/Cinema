@@ -15,7 +15,8 @@ import java.time.LocalDate;
 
 public class Payment {
     private int paymentId;
-    private int ticketId;
+    private  Seat seat;
+    private Ticket ticket;
     private double amount;
     private LocalDate paymentDate;
 

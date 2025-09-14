@@ -14,10 +14,8 @@ import lombok.experimental.SuperBuilder;
 
 public class Customer {
     private int customerId;
-    private int userId;
-    private String name;
     private String email;
-    private String phone;
+
 
     @Override
     public String toString() {

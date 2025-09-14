@@ -13,6 +13,7 @@ import lombok.experimental.SuperBuilder;
 
 public class Saloon {
     private int saloonId;
+    private Event event;
     private String name;
     private int capacity;
 
