@@ -14,23 +14,24 @@ public class EventRepository implements Repository<Event,Integer>,AutoCloseable 
     private PreparedStatement preparedStatement;
     private final EventMapper eventMapper=new EventMapper();
 
-    public EventRepository() throws Exception {
+    public EventRepository() throws SQLException {
         connection= ConnectionProvider.getProvider().getOracleConnection();
     }
 
     @Override
     public void save(Event event) throws Exception {
        preparedStatement=connection.prepareStatement(
-               "insert into events (title,description,event_start_time,event_end_time,duration,saloon_id)" +
-               " values (?,?,?,?,?,?)"
+               "insert into events (event_id,title,description,event_start_time,event_end_time,duration,saloon_id)" +
+               " values (?<?,?,?,?,?,?)"
        );
-       preparedStatement.setString(1,event.getTitle());
-       preparedStatement.setString(2,event.getDescription());
-       preparedStatement.setTimestamp(3,Timestamp.valueOf(event.getEventStartTime()));
-       preparedStatement.setTimestamp(4,Timestamp.valueOf(event.getEventEndTime()));
-       preparedStatement.setFloat(5,event.getDuration());
-       preparedStatement.setNull(6,java.sql.Types.INTEGER);
-       preparedStatement.executeQuery();
+       preparedStatement.setInt(1,event.getEventId());
+       preparedStatement.setString(2,event.getTitle());
+       preparedStatement.setString(3,event.getDescription());
+       preparedStatement.setTimestamp(4,Timestamp.valueOf(event.getEventStartTime()));
+       preparedStatement.setTimestamp(5,Timestamp.valueOf(event.getEventEndTime()));
+       preparedStatement.setFloat(6,event.getDuration());
+       preparedStatement.setNull(7,java.sql.Types.INTEGER);
+       preparedStatement.executeUpdate();
 
     }
 
@@ -45,7 +46,7 @@ public class EventRepository implements Repository<Event,Integer>,AutoCloseable 
         preparedStatement.setTimestamp(4,Timestamp.valueOf(event.getEventEndTime()));
         preparedStatement.setFloat(5,event.getDuration());
         preparedStatement.setNull(6,java.sql.Types.INTEGER);
-        preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
     }
 

@@ -13,20 +13,21 @@ public class CustomerRepository implements Repository<Customer,Integer>,AutoClos
     private PreparedStatement preparedStatement;
     private final CustomerMapper customerMapper=new CustomerMapper();
 
-    public  CustomerRepository() throws Exception {
+    public  CustomerRepository() throws SQLException {
         connection= ConnectionProvider.getProvider().getOracleConnection();
     }
     @Override
     public void save(Customer customer) throws Exception {
         preparedStatement=connection.prepareStatement(
-                "insert into customers(name,family,phone_number,age)" +
-                "values(?,?,?,?)"
+                "insert into customers(customer_id,name,family,phone_number,age)" +
+                "values(?,?,?,?,?)"
         );
-        preparedStatement.setString(1, customer.getName());
-        preparedStatement.setString(2, customer.getFamily());
-        preparedStatement.setString(3, customer.getPhoneNumber());
-        preparedStatement.setInt(4, customer.getAge());
-        preparedStatement.executeQuery();
+        preparedStatement.setInt(1, customer.getCustomerId());
+        preparedStatement.setString(2, customer.getName());
+        preparedStatement.setString(3, customer.getFamily());
+        preparedStatement.setString(4, customer.getPhoneNumber());
+        preparedStatement.setInt(5, customer.getAge());
+        preparedStatement.executeUpdate();
 
     }
 
@@ -39,7 +40,7 @@ public class CustomerRepository implements Repository<Customer,Integer>,AutoClos
         preparedStatement.setString(2, customer.getFamily());
         preparedStatement.setString(3, customer.getPhoneNumber());
         preparedStatement.setInt(4, customer.getAge());
-        preparedStatement.executeQuery();
+        preparedStatement.executeUpdate();
 
     }
 
@@ -49,7 +50,7 @@ public class CustomerRepository implements Repository<Customer,Integer>,AutoClos
                 "delete from customers where customer_id=?"
         );
         preparedStatement.setInt(1, id);
-        preparedStatement.executeQuery();
+        preparedStatement.execute();
 
     }
 
