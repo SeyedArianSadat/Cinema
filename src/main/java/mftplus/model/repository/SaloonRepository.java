@@ -15,9 +15,9 @@ import java.util.List;
 
 public class SaloonRepository implements Repository<Saloon, Integer> , AutoCloseable {
 
-    private Connection connection;
+    private final Connection connection;
     private PreparedStatement preparedStatement;
-    private SaloonMapper saloonMapper =  new SaloonMapper();
+    private final SaloonMapper saloonMapper =  new SaloonMapper();
 
     public SaloonRepository() throws SQLException {
         connection = ConnectionProvider.getProvider().getOracleConnection();

@@ -10,9 +10,9 @@ import java.util.List;
 
 public class PaymentRepository implements Repository<Payment, Integer> , AutoCloseable {
 
-    private Connection connection;
+    private final Connection connection;
     private PreparedStatement preparedStatement;
-    private PaymentMapper paymentMapper = new PaymentMapper();
+    private final PaymentMapper paymentMapper = new PaymentMapper();
 
     public PaymentRepository() throws SQLException {
         connection = ConnectionProvider.getProvider().getOracleConnection();

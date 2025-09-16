@@ -8,7 +8,7 @@ import java.util.List;
 
 public class PaymentService implements Service<Payment, Integer> {
     @Getter
-    private static PaymentService service = new PaymentService();
+    private static final PaymentService service = new PaymentService();
 
     private PaymentService(){
     }

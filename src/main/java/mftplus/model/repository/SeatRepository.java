@@ -14,9 +14,9 @@ import java.util.List;
 
 public class SeatRepository implements Repository<Seat, Integer> ,AutoCloseable{
 
-    private Connection connection;
+    private final Connection connection;
     private PreparedStatement preparedStatement;
-    private SeatMapper seatMapper = new SeatMapper();
+    private final SeatMapper seatMapper = new SeatMapper();
 
     public SeatRepository() throws SQLException {
         connection = ConnectionProvider.getProvider().getOracleConnection();

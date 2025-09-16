@@ -4,19 +4,16 @@ import lombok.Getter;
 import mftplus.model.entity.Seat;
 import mftplus.model.repository.SeatRepository;
 
-import java.util.Collections;
 import java.util.List;
 
 public class SeatService implements Service<Seat, Integer>{
 
     @Getter
-    private static SeatService service = new SeatService();
+    private static final SeatService service = new SeatService();
 
 
     private SeatService(){
-
     }
-
 
 
     @Override
