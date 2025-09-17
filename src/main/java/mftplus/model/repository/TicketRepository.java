@@ -55,7 +55,7 @@ public class TicketRepository implements Repository<Ticket, Integer>, AutoClosea
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
-            Ticket ticket =ticketMapper.TicketMapper(resultSet);
+            Ticket ticket =ticketMapper.ticketMapper(resultSet);
             tickets.add(ticket);
         }
         return tickets;
@@ -68,7 +68,7 @@ public class TicketRepository implements Repository<Ticket, Integer>, AutoClosea
         preparedStatement.setInt(1,id);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
-            ticket = ticketMapper.TicketMapper(resultSet);
+            ticket = ticketMapper.ticketMapper(resultSet);
         }
         return ticket;
     }

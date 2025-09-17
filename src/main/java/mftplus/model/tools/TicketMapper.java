@@ -5,7 +5,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 
 public class TicketMapper {
-    public Ticket TicketMapper(ResultSet resultSet) throws SQLException {
+   public Ticket ticketMapper(ResultSet resultSet) throws SQLException {
         return Ticket
                 .builder()
                 .ticketId(resultSet.getInt("Ticket_id"))
