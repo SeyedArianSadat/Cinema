@@ -3,7 +3,9 @@ CREATE TABLE users
     user_id  NUMBER PRIMARY KEY ,
     username NVARCHAR2(50) UNIQUE NOT NULL,
     password NVARCHAR2(50) NOT NULL,
-    role     NVARCHAR2(50) DEFAULT 'customer'
+    role     NVARCHAR2(50) DEFAULT 'customer',
+    customer_id NUMBER UNIQUE ,
+    CONSTRAINT fk_user_customer FOREIGN KEY(customer_id) REFERENCES  customers(customer_id)
 );
 CREATE TABLE customers
 (
