@@ -4,7 +4,7 @@ CREATE TABLE users
     username NVARCHAR2(50) UNIQUE NOT NULL,
     password NVARCHAR2(50) NOT NULL,
     role     NVARCHAR2(50) DEFAULT 'customer',
-    customer_id NUMBER UNIQUE ,
+    customer_id NUMBER NOT NULL ,
     CONSTRAINT fk_user_customer FOREIGN KEY(customer_id) REFERENCES  customers(customer_id)
 );
 create sequence user_seq start with 1 increment by 1;

@@ -21,12 +21,13 @@ public class UserRepository implements Repository<User, Integer>, AutoCloseable 
     @Override
     public void save(User user) throws Exception {
        preparedStatement=connection.prepareStatement(
-               "insert into USERS(user_id,username,password,role) values(?,?,?,?)"
+               "insert into USERS(user_id,username,password,role,customer_id) values(?,?,?,?,?)"
        );
        preparedStatement.setInt(1,user.getUserId());
        preparedStatement.setString(2,user.getUsername());
        preparedStatement.setString(3,user.getPassword());
        preparedStatement.setString(4,user.getRole());
+       preparedStatement.setInt(5,user.getCustomer().getCustomerId());
        preparedStatement.executeUpdate();
     }
 
