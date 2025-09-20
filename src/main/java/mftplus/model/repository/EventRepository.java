@@ -22,7 +22,7 @@ public class EventRepository implements Repository<Event,Integer>,AutoCloseable 
     public void save(Event event) throws Exception {
        preparedStatement=connection.prepareStatement(
                "insert into events (event_id,title,description,event_start_time,event_end_time,duration,saloon_id)" +
-               " values (?<?,?,?,?,?,?)"
+               " values (?,?,?,?,?,?,?)"
        );
        preparedStatement.setInt(1,event.getEventId());
        preparedStatement.setString(2,event.getTitle());
