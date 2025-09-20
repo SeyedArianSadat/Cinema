@@ -1,4 +1,5 @@
 import mftplus.model.entity.Payment;
+import mftplus.model.entity.enums.PaymentType;
 import mftplus.model.repository.PaymentRepository;
 import mftplus.model.service.PaymentService;
 
@@ -12,7 +13,7 @@ public class PaymentTest {
                 .paymentId(1)
                 .amount(0.7)
                 .paymentTime(LocalDateTime.now())
-                //.paymentType()
+                .paymentType(PaymentType.valueOf(("card")))
                 .build();
         try (PaymentRepository paymentRepository = new PaymentRepository()) {
             paymentRepository.save(payment);

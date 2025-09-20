@@ -25,17 +25,18 @@ public class SeatRepository implements Repository<Seat, Integer> ,AutoCloseable{
     @Override
     public void save(Seat seat) throws Exception {
         seat.setSeatId(ConnectionProvider.getProvider().getNextId("seat_seq"));
-        preparedStatement = connection.prepareStatement("insert into SEATS(SEAT_ID,SEAT_NUMBER,IS_AVAILABLE)values(?,?,?)");
+        preparedStatement = connection.prepareStatement("insert into SEATS(SEAT_ID, SALOON_ID, SEAT_NUMBER, IS_AVAILABLE)values(?, ?, ?, ?)");
         preparedStatement.setInt(1, seat.getSeatId());
-        preparedStatement.setString(2, seat.getSeatNumber());
-        preparedStatement.setBoolean(3, seat.isAvailable());
+        preparedStatement.setInt(2,seat.getSaloon().getSaloonId());
+        preparedStatement.setString(3, seat.getSeatNumber());
+        preparedStatement.setBoolean(4, seat.isAvailable());
         preparedStatement.execute();
     }
 
     @Override
     public void edit(Seat seat) throws Exception {
-        preparedStatement = connection.prepareStatement("update SEATS set SEAT_ID=?,SEAT_NUMBER=?,IS_AVAILABLE=? where SEAT_ID=?");
-        preparedStatement.setInt(1, seat.getSeatId());
+        preparedStatement = connection.prepareStatement("update SEATS set SALOON_ID=?, SEAT_NUMBER=?, IS_AVAILABLE=? where SEAT_ID=?");
+        preparedStatement.setInt(1, seat.getSaloon().getSaloonId());
         preparedStatement.setString(2, seat.getSeatNumber());
         preparedStatement.setBoolean(3, seat.isAvailable());
         preparedStatement.execute();

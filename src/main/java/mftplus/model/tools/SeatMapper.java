@@ -11,7 +11,7 @@ public class SeatMapper {
         return Seat
                 .builder()
                 .seatId(resultSet.getInt("seat-id"))
-                //.saloon(resultSet.getObject("saloon", Saloon.class))
+                .saloon(Saloon.builder().saloonId(resultSet.getInt("saloon-id")).build())
                 .seatNumber(resultSet.getString("seat-number"))
                 .isAvailable(resultSet.getBoolean("is-available"))
                 .build();
