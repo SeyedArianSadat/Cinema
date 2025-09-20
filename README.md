@@ -3,7 +3,7 @@
 
 A modern Cinema Management System in Java for managing halls, events, tickets, and QR-based ticketing.
 
-Features
+Features💬
 
 Manage saloon & seats
 
@@ -16,12 +16,12 @@ Role-based user management
 Database CRUD with MSE SQL
 
 
-Tech Stack
+Tech Stack🧑🏻‍💻
 
 Java 8, Apache PDFBox, Maven
 
 
-Contributors
+Contributors🔴
 
 Arian Sadat
 
