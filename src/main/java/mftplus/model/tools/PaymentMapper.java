@@ -12,7 +12,7 @@ public class PaymentMapper {
                 .builder()
                 .paymentId(resultSet.getInt("payment-id"))
                 .amount(resultSet.getDouble("amount"))
-                //.paymentType(PaymentType.)
+                .paymentType(PaymentType.valueOf(resultSet.getString("payment-type")))
                 .paymentTime(resultSet.getTimestamp("payment-time").toLocalDateTime())
                 .build();
     }
