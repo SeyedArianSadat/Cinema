@@ -12,8 +12,8 @@ public class SaloonMapper {
                 .name(resultSet.getString("saloon-name"))
                 .address(resultSet.getString("address"))
                 .capacity(resultSet.getInt("capacity"))
-                // .seatList(?)
-                //.manager(?)
+                //.seatList(null)
+                //.manager(null)
                 .build();
     }
 }
