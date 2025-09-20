@@ -27,24 +27,24 @@ public class SaloonRepository implements Repository<Saloon, Integer> , AutoClose
 
       saloon.setSaloonId(ConnectionProvider.getProvider().getNextId("saloon-seq"));
 
-      preparedStatement = connection.prepareStatement("insert into SALOONS(saloon_id, name, address, capacity) values (?,?,?,?)");
+      preparedStatement = connection.prepareStatement("insert into SALOONS(SALOON_ID, NAME, ADDRESS, CAPACITY, MANAGER_ID) values (?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, saloon.getSaloonId());
       preparedStatement.setString(2, saloon.getName());
       preparedStatement.setString(3, saloon.getAddress());
       preparedStatement.setInt(4, saloon.getCapacity());
-      //preparedStatement.se
-        preparedStatement.execute();
+      preparedStatement.setInt(5,saloon.getManager().getUserId());
+      preparedStatement.execute();
     }
 
     @Override
     public void edit(Saloon saloon) throws Exception {
 
-        preparedStatement = connection.prepareStatement("update SALOONS set SALOON_ID=?, name=?, address=?, capacity=? where saloon_id=?");
+        preparedStatement = connection.prepareStatement("update SALOONS set NAME=?, ADDRESS=?, CAPACITY=?, MANAGER_ID=? where SALOON_ID=?");
 
-        preparedStatement.setInt(1, saloon.getSaloonId());
-        preparedStatement.setString(2, saloon.getName());
-        preparedStatement.setString(3, saloon.getAddress());
-        preparedStatement.setInt(4, saloon.getCapacity());
+        preparedStatement.setString(1, saloon.getName());
+        preparedStatement.setString(2, saloon.getAddress());
+        preparedStatement.setInt(3, saloon.getCapacity());
+        preparedStatement.setInt(4,saloon.getManager().getUserId());
         preparedStatement.execute();
 
 
@@ -52,7 +52,7 @@ public class SaloonRepository implements Repository<Saloon, Integer> , AutoClose
 
     @Override
     public void delete(Integer id) throws Exception {
-       preparedStatement = connection.prepareStatement("delete from SALOONS where saloon_id=?");
+       preparedStatement = connection.prepareStatement("delete from SALOONS where SALOON_ID=?");
 
        preparedStatement.setInt(1, id);
        preparedStatement.execute();

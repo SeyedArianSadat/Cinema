@@ -1,6 +1,8 @@
 package mftplus.model.tools;
 
 import mftplus.model.entity.Saloon;
+import mftplus.model.entity.User;
+
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -12,8 +14,7 @@ public class SaloonMapper {
                 .name(resultSet.getString("saloon-name"))
                 .address(resultSet.getString("address"))
                 .capacity(resultSet.getInt("capacity"))
-                //.seatList(null)
-                //.manager(null)
+                .manager(User.builder().userId(resultSet.getInt("manager-id")).build())
                 .build();
     }
 }

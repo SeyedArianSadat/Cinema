@@ -1,6 +1,6 @@
 package mftplus.model.tools;
 
-import mftplus.model.entity.Payment;
+import mftplus.model.entity.*;
 import mftplus.model.entity.enums.PaymentType;
 
 import java.sql.ResultSet;
@@ -12,7 +12,7 @@ public class PaymentMapper {
                 .builder()
                 .paymentId(resultSet.getInt("payment-id"))
                 .amount(resultSet.getDouble("amount"))
-                //.paymentType(PaymentType.valueOf(resultSet.getString("payment-type")))
+                //.paymentType(PaymentType.)
                 .paymentTime(resultSet.getTimestamp("payment-time").toLocalDateTime())
                 .build();
     }
