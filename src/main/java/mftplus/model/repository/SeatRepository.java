@@ -1,6 +1,5 @@
 package mftplus.model.repository;
 
-import mftplus.model.entity.Payment;
 import mftplus.model.entity.Seat;
 import mftplus.model.tools.ConnectionProvider;
 import mftplus.model.tools.SeatMapper;

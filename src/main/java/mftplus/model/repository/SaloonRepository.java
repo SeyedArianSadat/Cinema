@@ -1,6 +1,5 @@
 package mftplus.model.repository;
 
-import mftplus.model.entity.Payment;
 import mftplus.model.entity.Saloon;
 import mftplus.model.tools.ConnectionProvider;
 import mftplus.model.tools.SaloonMapper;
@@ -10,7 +9,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class SaloonRepository implements Repository<Saloon, Integer> , AutoCloseable {
