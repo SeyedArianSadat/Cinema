@@ -13,11 +13,12 @@ import java.time.Duration;
 public class ConnectionProvider {
     @Getter
     private static final ConnectionProvider provider = new ConnectionProvider();
-
-
     private static final BasicDataSource dataSource = new BasicDataSource();
+
     private ConnectionProvider() {
-        dataSource.setDriverClassName("org.hsqldb.jdbcDriver");
+    }
+    public Connection getOracleConnection() throws SQLException {
+        dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
         dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
         dataSource.setUsername("javase");
         dataSource.setPassword("javase123");
@@ -28,18 +29,18 @@ public class ConnectionProvider {
 
         dataSource.setMaxWait(Duration.ofSeconds(10));
 
-    }
-    public Connection getConnection() throws SQLException {
         return dataSource.getConnection();
     }
     public int getNextId(String sequenceName) throws SQLException {
-        String sql = "SELECT " + sequenceName + ".nextval AS NEXT_ID FROM dual" ;
-        try (Connection connection= getConnection();
+        String sql = String.format("SELECT %s.nextval AS NEXT_ID FROM dual", sequenceName) ;
+        try (Connection connection= getOracleConnection();
              PreparedStatement preparedStatement = connection.prepareStatement(sql);
-             ResultSet resultSet = preparedStatement.executeQuery()){
-                 if (resultSet.next()) {
-                     return resultSet.getInt("next_id");
-                 }else  throw   new SQLException("Sequence " + sequenceName + " did not return a value");
+             ResultSet resultSet = preparedStatement.executeQuery()) {
+            if (resultSet.next()) {
+                return resultSet.getInt("next_id");
+            } else {
+                throw new SQLException("Sequence " + sequenceName + " did not return a value");
+            }
         }
 
 
