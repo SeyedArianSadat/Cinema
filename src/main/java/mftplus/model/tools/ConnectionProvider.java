@@ -21,9 +21,9 @@ public class ConnectionProvider {
         dataSource.setDriverClassName("oracle.jdbc.OracleDriver");
         dataSource.setUrl("jdbc:oracle:thin:@localhost:1521:xe");
         dataSource.setUsername("javase");
-        dataSource.setPassword("javase123");
+        dataSource.setPassword("java123");
 
-        dataSource.setMaxIdle(4);
+        dataSource.setMinIdle(4);
         dataSource.setMaxIdle(8);
         dataSource.setMaxTotal(16);
 
