@@ -14,8 +14,9 @@ public class CustomerRepository implements Repository<Customer,Integer>,AutoClos
     private final CustomerMapper customerMapper=new CustomerMapper();
 
     public  CustomerRepository() throws SQLException {
-        connection= ConnectionProvider.getProvider().getOracleConnection();
+        connection = ConnectionProvider.getProvider().getOracleConnection();
     }
+
     @Override
     public void save(Customer customer) throws Exception {
         preparedStatement=connection.prepareStatement(
