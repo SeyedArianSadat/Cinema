@@ -11,7 +11,7 @@ public class SaloonMapper {
         return Saloon
                 .builder()
                 .saloonId(resultSet.getInt("saloon_id"))
-                .name(resultSet.getString("saloon_name"))
+                .name(resultSet.getString("name"))
                 .address(resultSet.getString("address"))
                 .capacity(resultSet.getInt("capacity"))
                 .manager(User.builder().userId(resultSet.getInt("manager_id")).build())

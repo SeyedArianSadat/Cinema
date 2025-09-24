@@ -1,25 +1,39 @@
 import mftplus.model.entity.Saloon;
+import mftplus.model.entity.Seat;
 import mftplus.model.entity.User;
-import mftplus.model.repository.SaloonRepository;
 import mftplus.model.service.SaloonService;
+
+import java.util.ArrayList;
 
 public class SaloonTest {
     public static void main(String[] args) throws Exception {
-        Saloon saloon = Saloon
-                .builder()
-                .saloonId(3)
-                .name("romi")
-                .address("tehran")
-                .capacity(12)
-                .manager(User.builder().userId(3).build())
-                .build();
+        User manager = new User();
+        manager.setUserId(1);
+        manager.setUsername("manager1");
+        manager.setPassword("1234");
+        manager.setRole("manager");
 
 
-        try(SaloonRepository saloonRepository = new SaloonRepository()) {
-            saloonRepository.save(saloon);
+        ArrayList<Seat> seats = new ArrayList<>();
+        for (int i = 1; i <= 10; i++) {
+            Seat seat = new Seat();
+            seat.setSeatId(i);
+            seats.add(seat);
         }
+
+        // ساخت سالون تستی
+        Saloon saloon = new Saloon();
+        saloon.setSaloonId(1);
+        saloon.setName("VIP Hall");
+        saloon.setAddress("Tehran, Valiasr St.");
+        saloon.setCapacity(50);
+        saloon.setSeatList(seats);
+        saloon.setManager(manager);
 
         SaloonService.getService().save(saloon);
 
+
     }
 }
+
+

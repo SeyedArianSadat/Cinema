@@ -24,9 +24,6 @@ public class SaloonRepository implements Repository<Saloon, Integer> , AutoClose
 
     @Override
     public void save(Saloon saloon) throws Exception {
-
-      saloon.setSaloonId(ConnectionProvider.getProvider().getNextId("saloon-seq"));
-
       preparedStatement = connection.prepareStatement("insert into SALOONS(SALOON_ID, NAME, ADDRESS, CAPACITY, MANAGER_ID) values (?, ?, ?, ?, ?)");
       preparedStatement.setInt(1, saloon.getSaloonId());
       preparedStatement.setString(2, saloon.getName());
