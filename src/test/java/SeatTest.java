@@ -10,13 +10,8 @@ public class SeatTest {
                 .seatId(21)
                 .seatNumber("l")
                 .isAvailable(true)
-                .saloon(Saloon.builder().saloonId(26).build())
+                .saloon(Saloon.builder().saloonId(1).build())
                 .build();
-
-
-        try(SeatRepository seatRepository = new SeatRepository()) {
-            seatRepository.save(seat);
-        }
 
         SeatService.getService().save(seat);
 

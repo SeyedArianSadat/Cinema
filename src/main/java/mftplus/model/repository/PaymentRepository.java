@@ -22,7 +22,6 @@ public class PaymentRepository implements Repository<Payment, Integer> , AutoClo
 
     @Override
     public void save(Payment payment) throws Exception {
-        payment.setPaymentId(ConnectionProvider.getProvider().getNextId("payment-seq"));
         preparedStatement = connection.prepareStatement("insert into PAYMENTS(PAYMENT_ID, AMOUNT, PAYMENT_TYPE, PAYMENT_TIME)"+
                 " values(?,?,?,?)");
 

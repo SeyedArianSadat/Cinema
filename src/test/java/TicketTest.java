@@ -6,11 +6,11 @@ import java.time.LocalDateTime;
 public class TicketTest {
     public static void main(String[] args) throws  Exception {
         Event event = Event.builder()
-                .eventId(1).build();
+                .eventId(1).title("movie").build();
         Customer customer = Customer.builder()
-                .customerId(1).build();
+                .customerId(1).name("ali").build();
         Seat seat = Seat.builder()
-                .seatId(1).build();
+                .seatId(2).build();
         Payment payment = Payment.builder()
                 .paymentId(1).build();
 

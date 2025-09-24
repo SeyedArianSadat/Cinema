@@ -5,6 +5,8 @@ import mftplus.model.service.PaymentService;
 
 import java.time.LocalDateTime;
 
+import static mftplus.model.entity.enums.PaymentType.Card;
+
 
 public class PaymentTest {
     public static void main(String[] args) throws Exception {
@@ -13,12 +15,9 @@ public class PaymentTest {
                 .paymentId(1)
                 .amount(0.7)
                 .paymentTime(LocalDateTime.now())
-                .paymentType(PaymentType.valueOf(("card")))
+                .paymentType(PaymentType.valueOf(String.valueOf(Card)))
                 .build();
-        try (PaymentRepository paymentRepository = new PaymentRepository()) {
-            paymentRepository.save(payment);
 
-        }
 
         PaymentService.getService().save(payment);
 
