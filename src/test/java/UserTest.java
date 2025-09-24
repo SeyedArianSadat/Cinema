@@ -12,8 +12,8 @@ public class UserTest {
                 User.builder()
                         .userId(1)
                         .role("customer")
-                        .username("arian")
-                        .password("sadat")
+                        .username("hedie")
+                        .password("khodaei")
                         .customer(customer)
                         .build();
 
