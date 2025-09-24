@@ -11,8 +11,8 @@ public class EventMapper {
                 .eventId(resultSet.getInt("eventId"))
                 .title(resultSet.getString("title"))
                 .description(resultSet.getString("description"))
-                .eventStartTime(resultSet.getTimestamp("evenStartTime").toLocalDateTime())
-                .eventEndTime(resultSet.getTimestamp("evenEndTime").toLocalDateTime())
+                .eventStartDate(resultSet.getTimestamp("eventStartTime").toLocalDateTime())
+                .eventEndDate(resultSet.getTimestamp("eventEndTime").toLocalDateTime())
                 .duration(resultSet.getFloat("duration"))
                 .build();
     }

@@ -10,10 +10,10 @@ public class PaymentMapper {
     public Payment paymentMapper(ResultSet resultSet) throws SQLException {
         return Payment
                 .builder()
-                .paymentId(resultSet.getInt("payment-id"))
+                .paymentId(resultSet.getInt("payment_id"))
                 .amount(resultSet.getDouble("amount"))
-                .paymentType(PaymentType.valueOf(resultSet.getString("payment-type")))
-                .paymentTime(resultSet.getTimestamp("payment-time").toLocalDateTime())
+                .paymentType(PaymentType.valueOf(resultSet.getString("payment_type")))
+                .paymentTime(resultSet.getTimestamp("payment_time").toLocalDateTime())
                 .build();
     }
 }

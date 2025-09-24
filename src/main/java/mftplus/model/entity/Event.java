@@ -19,8 +19,8 @@ public class Event {
     private int eventId;
     private String title;
     private String description;
-    private LocalDateTime eventStartTime;
-    private LocalDateTime eventEndTime;
+    private LocalDateTime eventStartDate;
+    private LocalDateTime eventEndDate;
     private float duration;
     private List<Artist> artistList;
     private Saloon saloon;
