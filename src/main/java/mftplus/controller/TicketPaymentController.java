@@ -1,94 +1,208 @@
 package mftplus.controller;
+
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.control.cell.PropertyValueFactory;
+import lombok.extern.log4j.Log4j2;
+import mftplus.model.entity.*;
+import mftplus.model.entity.enums.PaymentType;
+import mftplus.model.repository.PaymentRepository;
+import mftplus.model.repository.TicketRepository;
+import mftplus.model.service.CustomerService;
+import mftplus.model.service.EventService;
+import mftplus.model.service.SeatService;
 
+import java.sql.SQLException;
+import java.time.LocalDateTime;
+import java.util.List;
+
+
+@Log4j2
 public class TicketPaymentController {
+    @FXML
+    private TextField ticketIdText, eventIdText, customerIdText, seatText, amountText, searchCustomerIdText;
 
+    @FXML
+    private ComboBox<String> paymentTypeComboBox;
 
-        @FXML
-        private ComboBox<String> eventComboBox;
+    @FXML
+    private Button saveButton, editButton, deleteButton;
 
-        @FXML
-        private ComboBox<String> saloonComboBox;
+    @FXML
+    private TableView<Ticket> ticketTable;
 
-        @FXML
-        private GridPane seatGrid;
+    @FXML
+    private TableColumn<Ticket, Integer> ticketIdColumn, eventIdColumn, customerIdColumn;
 
-        @FXML
-        private Label ticketSummaryLabel;
+    @FXML
+    private TableColumn<Ticket, String> seatColumn, paymentTypeColumn;
 
-        @FXML
-        private Label paymentSummaryLabel;
+    @FXML
+    private TableColumn<Ticket, Double> amountColumn;
 
-        @FXML
-        private TextField cardHolderField;
+    private final TicketRepository ticketRepository;
 
-        @FXML
-        private TextField cardNumberField;
-
-        @FXML
-        private PasswordField cvvField;
-
-        @FXML
-        private DatePicker expiryDatePicker;
-
-        @FXML
-        private Button payButton;
-
-        private String selectedSeat;
-
-        @FXML
-        public void initialize() {
-
-            eventComboBox.getItems().addAll("film a", "film B", "concert X");
-            saloonComboBox.getItems().addAll("saloon 1", "saloon 2");
-
-
-            int rows = 5, cols = 5;
-            for (int i = 1; i <= rows; i++) {
-                for (int j = 1; j <= cols; j++) {
-                    Button seatBtn = new Button(i + "-" + j);
-                    seatBtn.setPrefSize(50, 30);
-
-                    seatBtn.setOnAction(e -> {
-                        selectedSeat = seatBtn.getText();
-                        ticketSummaryLabel.setText(
-                                "event: " + eventComboBox.getValue() +
-                                        " | saloon " + saloonComboBox.getValue() +
-                                        " | seat " + selectedSeat
-                        );
-                        paymentSummaryLabel.setText("200$ for a seat  " + selectedSeat);
-                    });
-
-                    seatGrid.add(seatBtn, j, i);
-                }
-            }
-
-
-            payButton.setOnAction(e -> handlePayment());
-        }
-
-        private void handlePayment() {
-            if (eventComboBox.getValue() == null||  saloonComboBox.getValue() == null || selectedSeat == null) {
-                showAlert("error", "please select your ticket first");
-                return;
-            }
-            if (cardHolderField.getText().isEmpty() || cardNumberField.getText().isEmpty()||
-            cvvField.getText().isEmpty() || expiryDatePicker.getValue() == null) {
-                showAlert("error", "fill all the fields");
-                return;
-            }
-
-
-            showAlert("successful", "successful payment" + System.currentTimeMillis());
-        }
-
-        private void showAlert(String title, String message) {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle(title);
-            alert.setHeaderText(null);
-            alert.setContentText(message);
-            alert.showAndWait();
+    {
+        try {
+            ticketRepository = new TicketRepository();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
+
+    private final PaymentRepository paymentRepository;
+
+    {
+        try {
+            paymentRepository = new PaymentRepository();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @FXML
+    public void initialize() {
+
+        paymentTypeComboBox.getItems().addAll("CARD", "CASH", "ONLINE");
+
+
+        saveButton.setOnAction(e -> saveTicket());
+
+
+        editButton.setOnAction(e -> editTicket());
+
+
+        deleteButton.setOnAction(e -> deleteTicket());
+
+
+        ticketTable.setOnMouseReleased(e -> selectFromTable());
+        ticketTable.setOnKeyReleased(e -> selectFromTable());
+
+
+        try {
+            resetForm();
+        } catch (Exception ex) {
+            new Alert(Alert.AlertType.ERROR, "Error Loading Data", ButtonType.OK).show();
+            log.error("Error Loading Data: " + ex.getMessage());
+        }
+    }
+
+    private void saveTicket() {
+        try {
+            Payment payment = new Payment();
+            payment.setAmount(Double.parseDouble(amountText.getText()));
+            payment.setPaymentType(PaymentType.valueOf(paymentTypeComboBox.getValue()));
+            payment.setPaymentTime(LocalDateTime.now());
+
+            paymentRepository.save(payment);
+
+
+            Ticket ticket=
+                    Ticket.builder()
+                            .event(EventService.getService().findById(Integer.parseInt(eventIdText.getText())))
+                            .customer(CustomerService.getService().findById(Integer.parseInt(customerIdText.getText())))
+                            .seat(SeatService.getService().findById(Integer.parseInt(seatText.getText())))
+                            .ticketTime(LocalDateTime.now())
+                            .build();
+
+            ticketRepository.save(ticket);
+
+            new Alert(Alert.AlertType.INFORMATION, "Ticket Saved Successfully\nID: " + ticket.getTicketId(), ButtonType.OK).show();
+            log.info("Ticket Saved Successfully: " + ticket.getTicketId());
+            resetForm();
+
+        } catch (Exception ex) {
+            log.error("Ticket Save Failed: " + ex.getMessage());
+            new Alert(Alert.AlertType.ERROR, "Ticket Save Failed: " + ex.getMessage(), ButtonType.OK).show();
+        }
+    }
+
+    private void editTicket() {
+        try {
+            Payment payment = new Payment();
+            payment.setAmount(Double.parseDouble(amountText.getText()));
+            payment.setPaymentType(PaymentType.valueOf(paymentTypeComboBox.getValue()));
+            payment.setPaymentTime(LocalDateTime.now());
+            paymentRepository.save(payment);
+
+
+            Ticket ticket=
+                    Ticket.builder()
+                            .event(EventService.getService().findById(Integer.parseInt(eventIdText.getText())))
+                            .customer(CustomerService.getService().findById(Integer.parseInt(customerIdText.getText())))
+                            .seat(SeatService.getService().findById(Integer.parseInt(seatText.getText())))
+                            .ticketTime(LocalDateTime.now())
+                            .build();
+
+
+            ticketRepository.edit(ticket);
+
+            new Alert(Alert.AlertType.INFORMATION, "Ticket Edited Successfully\nID: " + ticket.getTicketId(), ButtonType.OK).show();
+            log.info("Ticket Edited Successfully: " + ticket.getTicketId());
+            resetForm();
+
+        } catch (Exception ex) {
+            log.error("Ticket Edit Failed: " + ex.getMessage());
+            new Alert(Alert.AlertType.ERROR, "Ticket Edit Failed: " + ex.getMessage(), ButtonType.OK).show();
+        }
+    }
+
+    private void deleteTicket() {
+        try {
+            int id = Integer.parseInt(ticketIdText.getText());
+            ticketRepository.delete(id);
+
+            new Alert(Alert.AlertType.INFORMATION, "Ticket Deleted Successfully\nID: " + id, ButtonType.OK).show();
+            log.info("Ticket Deleted Successfully: " + id);
+            resetForm();
+
+        } catch (Exception ex) {
+            log.error("Ticket Delete Failed: " + ex.getMessage());
+            new Alert(Alert.AlertType.ERROR, "Ticket Delete Failed: " + ex.getMessage(), ButtonType.OK).show();
+        }
+    }
+
+    private void selectFromTable() {
+        try {
+            Ticket ticket = ticketTable.getSelectionModel().getSelectedItem();
+            if (ticket == null) return;
+
+            ticketIdText.setText(String.valueOf(ticket.getTicketId()));
+            eventIdText.setText(String.valueOf(ticket.getEvent().getEventId()));
+            customerIdText.setText(String.valueOf(ticket.getCustomer().getCustomerId()));
+            seatText.setText(ticket.getSeat().getSeatNumber());
+            amountText.setText(String.valueOf(ticket.getPayment().getAmount()));
+            paymentTypeComboBox.setValue(ticket.getPayment().getPaymentType().name());
+
+        } catch (Exception ex) {
+            new Alert(Alert.AlertType.ERROR, "Error Selecting Ticket", ButtonType.OK).show();
+            log.error("Error Selecting Ticket: " + ex.getMessage());
+        }
+    }
+    private void resetForm() throws Exception {
+        ticketIdText.clear();
+        eventIdText.clear();
+        customerIdText.clear();
+        seatText.clear();
+        amountText.clear();
+        paymentTypeComboBox.getSelectionModel().clearSelection();
+        searchCustomerIdText.clear();
+
+        showDataOnTable(ticketRepository.findAll());
+    }
+
+    private void showDataOnTable(List<Ticket> tickets) {
+        ObservableList<Ticket> ticketObservableList = FXCollections.observableArrayList(tickets);
+
+        ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
+        eventIdColumn.setCellValueFactory(new PropertyValueFactory<>("eventId"));
+        customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));
+        seatColumn.setCellValueFactory(new PropertyValueFactory<>("seat"));
+        amountColumn.setCellValueFactory(new PropertyValueFactory<>("amount"));
+        paymentTypeColumn.setCellValueFactory(new PropertyValueFactory<>("paymentType"));
+
+        ticketTable.setItems(ticketObservableList);
+    }
+}
