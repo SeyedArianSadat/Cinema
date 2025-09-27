@@ -1,6 +1,5 @@
 import mftplus.model.entity.Payment;
 import mftplus.model.entity.enums.PaymentType;
-import mftplus.model.repository.PaymentRepository;
 import mftplus.model.service.PaymentService;
 
 import java.time.LocalDateTime;

@@ -1,6 +1,5 @@
 import mftplus.model.entity.Saloon;
 import mftplus.model.entity.Seat;
-import mftplus.model.repository.SeatRepository;
 import mftplus.model.service.SeatService;
 
 public class SeatTest {

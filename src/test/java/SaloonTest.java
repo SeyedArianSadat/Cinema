@@ -21,7 +21,6 @@ public class SaloonTest {
             seats.add(seat);
         }
 
-        // ساخت سالون تستی
         Saloon saloon = new Saloon();
         saloon.setSaloonId(1);
         saloon.setName("VIP Hall");
