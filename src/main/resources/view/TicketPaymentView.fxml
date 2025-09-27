@@ -2,59 +2,63 @@
 
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.geometry.*?>
+
 
 <BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="mftplus.controller.TicketPaymentController">
 
-    <!-- بخش Ticket -->
+
     <top>
-        <VBox spacing="10" alignment="CENTER" padding="15">
-            <Label text="🎟 انتخاب بلیط" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <VBox spacing="10" padding="15" alignment="CENTER">
+            <Label text="🎟 Ticket and Payment Form" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
 
-            <HBox spacing="10" alignment="CENTER">
-                <Label text="ایونت:"/>
-                <ComboBox fx:id="eventComboBox" prefWidth="200"/>
-            </HBox>
+            <GridPane hgap="10" vgap="10" alignment="CENTER">
+                <Label text="Ticket ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="ticketIdText" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-            <HBox spacing="10" alignment="CENTER">
-                <Label text="سالن:"/>
-                <ComboBox fx:id="saloonComboBox" prefWidth="200"/>
-            </HBox>
+                <Label text="Event ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="eventIdText" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-            <Label text="انتخاب صندلی:"/>
-            <GridPane fx:id="seatGrid" hgap="5" vgap="5" alignment="CENTER">
-                <!-- صندلی‌ها به صورت داینامیک ساخته می‌شن -->
+                <Label text="Customer ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="customerIdText" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+
+                <Label text="Seat:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="seatText" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+
+                <Label text="Amount:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="amountText" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+
+                <Label text="Payment Type:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="paymentTypeComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
             </GridPane>
 
-            <Label fx:id="ticketSummaryLabel" text="هیچ بلیطی انتخاب نشده." style="-fx-text-fill: #555;" />
+            <HBox spacing="10" alignment="CENTER">
+                <Button fx:id="saveButton" text="Save" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+                <Button fx:id="editButton" text="Edit" style="-fx-background-color: #FFA500; -fx-text-fill: white;"/>
+                <Button fx:id="deleteButton" text="Delete" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
+            </HBox>
         </VBox>
     </top>
 
-    <!-- بخش Payment -->
+
     <center>
-        <VBox spacing="10" alignment="CENTER" padding="15">
-            <Label text="💳 اطلاعات پرداخت" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <VBox spacing="10" padding="15" alignment="CENTER">
+            <Label text="🎫 Tickets Table" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
 
-            <Label fx:id="paymentSummaryLabel" text="لطفاً ابتدا بلیط را انتخاب کنید." style="-fx-text-fill: #555;" />
-
-            <HBox spacing="10" alignment="CENTER">
-                <Label text="نام دارنده کارت:"/>
-                <TextField fx:id="cardHolderField" prefWidth="200"/>
+            <HBox spacing="10" alignment="CENTER_LEFT">
+                <Label text="Search by Customer ID:"/>
+                <TextField fx:id="searchCustomerIdText" prefWidth="100"/>
             </HBox>
 
-            <HBox spacing="10" alignment="CENTER">
-                <Label text="شماره کارت:"/>
-                <TextField fx:id="cardNumberField" prefWidth="200"/>
-            </HBox>
-
-            <HBox spacing="10" alignment="CENTER">
-                <Label text="CVV2:"/>
-                <PasswordField fx:id="cvvField" prefWidth="100"/>
-                <Label text="تاریخ انقضا:"/>
-                <DatePicker fx:id="expiryDatePicker"/>
-            </HBox>
-
-            <Button fx:id="payButton" text="پرداخت" prefWidth="150" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+            <TableView fx:id="ticketTable" prefHeight="300" prefWidth="600">
+                <columns>
+                    <TableColumn fx:id="ticketIdColumn" text="Ticket ID" prefWidth="70"/>
+                    <TableColumn fx:id="eventIdColumn" text="Event ID" prefWidth="70"/>
+                    <TableColumn fx:id="customerIdColumn" text="Customer ID" prefWidth="90"/>
+                    <TableColumn fx:id="seatColumn" text="Seat" prefWidth="80"/>
+                    <TableColumn fx:id="amountColumn" text="Amount" prefWidth="90"/>
+                    <TableColumn fx:id="paymentTypeColumn" text="Payment Type" prefWidth="100"/>
+                </columns>
+            </TableView>
         </VBox>
     </center>
 
