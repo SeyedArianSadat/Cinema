@@ -22,7 +22,7 @@ import java.util.List;
 @Log4j2
 public class TicketPaymentController {
     @FXML
-    private TextField ticketIdText, eventIdText, customerIdText, seatText, amountText, searchCustomerIdText;
+    private TextField ticketIdText, eventIdText, customerIdText, seatText, amountText;
 
     @FXML
     private ComboBox<String> paymentTypeComboBox;
@@ -188,7 +188,6 @@ public class TicketPaymentController {
         seatText.clear();
         amountText.clear();
         paymentTypeComboBox.getSelectionModel().clearSelection();
-        searchCustomerIdText.clear();
 
         showDataOnTable(ticketRepository.findAll());
     }

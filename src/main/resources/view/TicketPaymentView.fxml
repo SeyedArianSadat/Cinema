@@ -44,10 +44,6 @@
         <VBox spacing="10" padding="15" alignment="CENTER">
             <Label text="🎫 Tickets Table" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
 
-            <HBox spacing="10" alignment="CENTER_LEFT">
-                <Label text="Search by Customer ID:"/>
-                <TextField fx:id="searchCustomerIdText" prefWidth="100"/>
-            </HBox>
 
             <TableView fx:id="ticketTable" prefHeight="300" prefWidth="600">
                 <columns>
