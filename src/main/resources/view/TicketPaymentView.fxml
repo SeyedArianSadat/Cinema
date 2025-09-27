@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="mftplus.controller.TicketPaymentController">
+
+    <!-- بخش Ticket -->
+    <top>
+        <VBox spacing="10" alignment="CENTER" padding="15">
+            <Label text="🎟 انتخاب بلیط" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="ایونت:"/>
+                <ComboBox fx:id="eventComboBox" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="سالن:"/>
+                <ComboBox fx:id="saloonComboBox" prefWidth="200"/>
+            </HBox>
+
+            <Label text="انتخاب صندلی:"/>
+            <GridPane fx:id="seatGrid" hgap="5" vgap="5" alignment="CENTER">
+                <!-- صندلی‌ها به صورت داینامیک ساخته می‌شن -->
+            </GridPane>
+
+            <Label fx:id="ticketSummaryLabel" text="هیچ بلیطی انتخاب نشده." style="-fx-text-fill: #555;" />
+        </VBox>
+    </top>
+
+    <!-- بخش Payment -->
+    <center>
+        <VBox spacing="10" alignment="CENTER" padding="15">
+            <Label text="💳 اطلاعات پرداخت" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+
+            <Label fx:id="paymentSummaryLabel" text="لطفاً ابتدا بلیط را انتخاب کنید." style="-fx-text-fill: #555;" />
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="نام دارنده کارت:"/>
+                <TextField fx:id="cardHolderField" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="شماره کارت:"/>
+                <TextField fx:id="cardNumberField" prefWidth="200"/>
+            </HBox>
+
+            <HBox spacing="10" alignment="CENTER">
+                <Label text="CVV2:"/>
+                <PasswordField fx:id="cvvField" prefWidth="100"/>
+                <Label text="تاریخ انقضا:"/>
+                <DatePicker fx:id="expiryDatePicker"/>
+            </HBox>
+
+            <Button fx:id="payButton" text="پرداخت" prefWidth="150" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
+        </VBox>
+    </center>
+
+</BorderPane>
