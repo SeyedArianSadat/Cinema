@@ -17,7 +17,7 @@ public class UserTest {
                         .customer(customer)
                         .build();
 
-        UserService.getUserService().save(user);
+        UserService.getService().save(user);
 
     }
 }
