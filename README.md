@@ -13,12 +13,12 @@ Ticketing with QR codes
 
 Role-based user management
 
-Database CRUD with MSE SQL
+Database Oracle
 
 
 Tech Stack🧑🏻‍💻
 
-Java 8, Apache PDFBox, Maven
+Java 8, Apache PDFBox, Maven ,Oracle database
 
 
 Contributors🔴
