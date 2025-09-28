@@ -7,7 +7,7 @@ public class CustomerTest {
                 Customer.builder()
                         .customerId(1)
                         .age(20)
-                        .phoneNumber("ieshgi")
+                        .phoneNumber("123456789")
                         .name("arian")
                         .family("sadat")
                         .build();

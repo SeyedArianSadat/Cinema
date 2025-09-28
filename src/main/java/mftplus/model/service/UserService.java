@@ -7,7 +7,7 @@ import java.util.List;
 
 public class UserService implements Service<User , Integer> {
     @Getter
-    private final static UserService userService = new UserService();
+    private final static UserService Service = new UserService();
     private  UserService(){
 
     }
@@ -39,6 +39,17 @@ public class UserService implements Service<User , Integer> {
     public User findById(Integer id) throws Exception {
         try (UserRepository userRepository =new UserRepository()){
             return userRepository.findById(id);
+        }
+    }
+    public User findByUsernameAndPassword(String username, String password) throws Exception {
+        try (UserRepository userRepository =new UserRepository()){
+            User user = userRepository.findByUsernameAndPassword(username, password);
+            if(user != null){
+                return user;
+            }else{
+                throw new Exception();
+
+            }
         }
     }
 }

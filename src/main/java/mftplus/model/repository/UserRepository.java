@@ -78,15 +78,16 @@ public class UserRepository implements Repository<User, Integer>, AutoCloseable 
         }
         return user;
     }
-    public User login(String username, String password) throws Exception {
+    public User findByUsernameAndPassword(String username, String password) throws Exception {
         User user = null;
-        preparedStatement=connection.prepareStatement("select * from users where username=? and password=?");
+        preparedStatement = connection.prepareStatement("select * from users where username=? and password=?");
         preparedStatement.setString(1,username);
         preparedStatement.setString(2,password);
         ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             user = userMapper.userMapper(resultSet);
-        }return user;
+        }
+        return user;
     }
     @Override
     public void close() throws Exception {
