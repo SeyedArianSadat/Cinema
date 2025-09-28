@@ -69,15 +69,14 @@ public class EventController implements Initializable {
             stage.setTitle("Ticket Details");
 
             // دریافت کنترلر تیکت(????) و ارسال اطلاعات ایونت
+
             /* TicketPaymentController ticketController = loader.getController();
+
             ticketController.setEventDetails(
                     eventComboBox.getValue(),
-                    artistComboBox.getValue(),
-                    saloonComboBox.getValue(),
                     seatComboBox.getValue(),
-                    startDatePicker.getValue(),
-                    endDatePicker.getValue()
-            ); */     //قسمت setEventDetails ارور میده چون همچین چیزی باید در تیکت کنترلر وجود داشته باشه به هرحال.حالا اسمشو من نمیدونم شما کدشو نوشتید
+
+            ); */     //باید ی متو به نامsetEventDetails در تیکن پیمنت کنترلر تعریف کنی که بیاد به جای 2 تا لیبل ایونت ایدی و سیت اطلاعات قبلی رو set کنه
 
         } catch (IOException e) {
             e.printStackTrace();
