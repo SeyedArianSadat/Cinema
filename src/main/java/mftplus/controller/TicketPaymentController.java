@@ -15,14 +15,17 @@ import mftplus.model.service.EventService;
 import mftplus.model.service.SeatService;
 
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
-
 @Log4j2
 public class TicketPaymentController {
+
     @FXML
     private TextField ticketIdText, eventIdText, customerIdText, seatText, amountText;
+    @FXML
+    private TextField saloonText, startDateText, endDateText;
 
     @FXML
     private ComboBox<String> paymentTypeComboBox;
@@ -64,22 +67,14 @@ public class TicketPaymentController {
 
     @FXML
     public void initialize() {
-
         paymentTypeComboBox.getItems().addAll("CARD", "CASH", "ONLINE");
 
-
         saveButton.setOnAction(e -> saveTicket());
-
-
         editButton.setOnAction(e -> editTicket());
-
-
         deleteButton.setOnAction(e -> deleteTicket());
-
 
         ticketTable.setOnMouseReleased(e -> selectFromTable());
         ticketTable.setOnKeyReleased(e -> selectFromTable());
-
 
         try {
             resetForm();
@@ -87,6 +82,15 @@ public class TicketPaymentController {
             new Alert(Alert.AlertType.ERROR, "Error Loading Data", ButtonType.OK).show();
             log.error("Error Loading Data: " + ex.getMessage());
         }
+    }
+
+    public void setEventDetails(String eventName, String seatNumber, String saloonName,
+                                LocalDate startDate, LocalDate endDate) {
+        eventIdText.setText(eventName);
+        seatText.setText(seatNumber);
+        saloonText.setText(saloonName);
+        if (startDate != null) startDateText.setText(startDate.toString());
+        if (endDate != null) endDateText.setText(endDate.toString());
     }
 
     private void saveTicket() {
@@ -99,16 +103,15 @@ public class TicketPaymentController {
             paymentRepository.save(payment);
 
 
-            Ticket ticket=
-                    Ticket.builder()
-                            .event(EventService.getService().findById(Integer.parseInt(eventIdText.getText())))
-                            .customer(CustomerService.getService().findById(Integer.parseInt(customerIdText.getText())))
-                            .seat(SeatService.getService().findById(Integer.parseInt(seatText.getText())))
-                            .ticketTime(LocalDateTime.now())
-                            .build();
+            Ticket ticket = Ticket.builder()
+                    .event(EventService.getService().findById(Integer.parseInt(eventIdText.getText())))
+                    .customer(CustomerService.getService().findById(Integer.parseInt(customerIdText.getText())))
+                    .seat(SeatService.getService().findById(Integer.parseInt(seatText.getText())))
+                    .ticketTime(LocalDateTime.now())
+                    .payment(payment)
+                    .build();
 
             ticketRepository.save(ticket);
-
             new Alert(Alert.AlertType.INFORMATION, "Ticket Saved Successfully\nID: " + ticket.getTicketId(), ButtonType.OK).show();
             log.info("Ticket Saved Successfully: " + ticket.getTicketId());
             resetForm();
@@ -127,15 +130,13 @@ public class TicketPaymentController {
             payment.setPaymentTime(LocalDateTime.now());
             paymentRepository.save(payment);
 
-
-            Ticket ticket=
-                    Ticket.builder()
-                            .event(EventService.getService().findById(Integer.parseInt(eventIdText.getText())))
-                            .customer(CustomerService.getService().findById(Integer.parseInt(customerIdText.getText())))
-                            .seat(SeatService.getService().findById(Integer.parseInt(seatText.getText())))
-                            .ticketTime(LocalDateTime.now())
-                            .build();
-
+            Ticket ticket = Ticket.builder()
+                    .event(EventService.getService().findById(Integer.parseInt(eventIdText.getText())))
+                    .customer(CustomerService.getService().findById(Integer.parseInt(customerIdText.getText())))
+                    .seat(SeatService.getService().findById(Integer.parseInt(seatText.getText())))
+                    .ticketTime(LocalDateTime.now())
+                    .payment(payment)
+                    .build();
 
             ticketRepository.edit(ticket);
 
@@ -172,21 +173,28 @@ public class TicketPaymentController {
             ticketIdText.setText(String.valueOf(ticket.getTicketId()));
             eventIdText.setText(String.valueOf(ticket.getEvent().getEventId()));
             customerIdText.setText(String.valueOf(ticket.getCustomer().getCustomerId()));
+            // اگر Seat مدل شماره را نگه می‌دارد:
             seatText.setText(ticket.getSeat().getSeatNumber());
-            amountText.setText(String.valueOf(ticket.getPayment().getAmount()));
-            paymentTypeComboBox.setValue(ticket.getPayment().getPaymentType().name());
+            if (ticket.getPayment() != null) {
+                amountText.setText(String.valueOf(ticket.getPayment().getAmount()));
+                paymentTypeComboBox.setValue(ticket.getPayment().getPaymentType().name());
+            }
 
         } catch (Exception ex) {
             new Alert(Alert.AlertType.ERROR, "Error Selecting Ticket", ButtonType.OK).show();
             log.error("Error Selecting Ticket: " + ex.getMessage());
         }
     }
+
     private void resetForm() throws Exception {
         ticketIdText.clear();
         eventIdText.clear();
         customerIdText.clear();
         seatText.clear();
         amountText.clear();
+        saloonText.clear();
+        startDateText.clear();
+        endDateText.clear();
         paymentTypeComboBox.getSelectionModel().clearSelection();
 
         showDataOnTable(ticketRepository.findAll());
@@ -194,7 +202,6 @@ public class TicketPaymentController {
 
     private void showDataOnTable(List<Ticket> tickets) {
         ObservableList<Ticket> ticketObservableList = FXCollections.observableArrayList(tickets);
-
         ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
         eventIdColumn.setCellValueFactory(new PropertyValueFactory<>("eventId"));
         customerIdColumn.setCellValueFactory(new PropertyValueFactory<>("customerId"));

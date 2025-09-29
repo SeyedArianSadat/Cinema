@@ -2,12 +2,9 @@ package mftplus.controller;
 
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 import javafx.stage.Stage;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import mftplus.model.service.UserService;
 import mftplus.model.tools.FormLoader;
 
@@ -32,10 +29,10 @@ public class LoginController implements Initializable {
                     AppState.LoggedInUser = UserService.getService().findByUsernameAndPassword(usernameTxt.getText(), passwordTxt.getText());
 
                     Stage stage = new Stage();
-                    FormLoader.getFormLoader().showStage(stage, "/view/TicketPaymentView.fxml", "payment Information");
+                    FormLoader.getFormLoader().showStage(stage, "/view/EventView.fxml", "Events page");
                     loginBtn.getScene().getWindow().hide();
                 }catch (Exception ex){
-                    Alert alert = new Alert(Alert.AlertType.ERROR, ex.getMessage());
+                    Alert alert = new Alert(Alert.AlertType.ERROR, "invalid username/password", ButtonType.OK);
                     alert.show();
                 }
             });

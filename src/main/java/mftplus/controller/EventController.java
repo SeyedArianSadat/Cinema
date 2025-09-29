@@ -64,19 +64,24 @@ public class EventController implements Initializable {
         try {
 
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/view/TicketPaymentView.fxml"));
-            Stage stage = (Stage) eventComboBox.getScene().getWindow();
-            stage.setScene(new Scene(loader.load()));
-            stage.setTitle("Ticket Details");
+            Scene scene = new Scene(loader.load());
+            TicketPaymentController ticketController = loader.getController();
 
-            // دریافت کنترلر تیکت(????) و ارسال اطلاعات ایونت
-
-            /* TicketPaymentController ticketController = loader.getController();
 
             ticketController.setEventDetails(
                     eventComboBox.getValue(),
                     seatComboBox.getValue(),
+                    saloonComboBox.getValue(),
+                    startDatePicker.getValue(),
+                    endDatePicker.getValue()
+            );
+            //باید ی متو به نامsetEventDetails در تیکن پیمنت کنترلر تعریف کنی که بیاد به جای 2 تا لیبل ایونت ایدی و سیت اطلاعات قبلی رو set کنه
+            Stage stage = (Stage) eventComboBox.getScene().getWindow();
+            stage.setScene(scene);
+            stage.setTitle("Ticket Details");
 
-            ); */     //باید ی متو به نامsetEventDetails در تیکن پیمنت کنترلر تعریف کنی که بیاد به جای 2 تا لیبل ایونت ایدی و سیت اطلاعات قبلی رو set کنه
+            // دریافت کنترلر تیکت(????) و ارسال اطلاعات ایونت
+
 
         } catch (IOException e) {
             e.printStackTrace();

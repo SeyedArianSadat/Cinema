@@ -1,61 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
 
-
-<BorderPane xmlns:fx="http://javafx.com/fxml" fx:controller="mftplus.controller.TicketPaymentController">
-
+<BorderPane xmlns:fx="http://javafx.com/fxml"
+            fx:controller="mftplus.controller.TicketPaymentController">
 
     <top>
-        <VBox spacing="10" padding="15" alignment="CENTER">
-            <Label text="🎟 Ticket and Payment Form" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <VBox spacing="10" padding="15" alignment="CENTER_LEFT">
+            <Label text="Ticket Details" />
 
-            <GridPane hgap="10" vgap="10" alignment="CENTER">
-                <Label text="Ticket ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
-                <TextField fx:id="ticketIdText" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="100"/>
+                    <ColumnConstraints halignment="LEFT" minWidth="200"/>
+                </columnConstraints>
 
-                <Label text="Event ID:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
-                <TextField fx:id="eventIdText" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+                <Label text="Event:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="eventIdText" editable="false" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
 
-                <Label text="Customer ID:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
-                <TextField fx:id="customerIdText" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+                <Label text="Seat:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="seatText" editable="false" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
 
-                <Label text="Seat:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
-                <TextField fx:id="seatText" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
+                <Label text="Saloon:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <TextField fx:id="saloonText" editable="false" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
 
-                <Label text="Amount:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
-                <TextField fx:id="amountText" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
+                <Label text="Start Date:" GridPane.rowIndex="3" GridPane.columnIndex="0"/>
+                <TextField fx:id="startDateText" editable="false" GridPane.rowIndex="3" GridPane.columnIndex="1"/>
 
-                <Label text="Payment Type:" GridPane.rowIndex="5" GridPane.columnIndex="0"/>
-                <ComboBox fx:id="paymentTypeComboBox" GridPane.rowIndex="5" GridPane.columnIndex="1"/>
+                <Label text="End Date:" GridPane.rowIndex="4" GridPane.columnIndex="0"/>
+                <TextField fx:id="endDateText" editable="false" GridPane.rowIndex="4" GridPane.columnIndex="1"/>
             </GridPane>
-
-            <HBox spacing="10" alignment="CENTER">
-                <Button fx:id="saveButton" text="Save" style="-fx-background-color: #4CAF50; -fx-text-fill: white;"/>
-                <Button fx:id="editButton" text="Edit" style="-fx-background-color: #FFA500; -fx-text-fill: white;"/>
-                <Button fx:id="deleteButton" text="Delete" style="-fx-background-color: #F44336; -fx-text-fill: white;"/>
-            </HBox>
         </VBox>
     </top>
 
-
     <center>
-        <VBox spacing="10" padding="15" alignment="CENTER">
-            <Label text="🎫 Tickets Table" style="-fx-font-size: 16px; -fx-font-weight: bold;" />
+        <VBox spacing="10" padding="15" alignment="CENTER_LEFT">
+            <Label text="Payment Info"/>
 
+            <GridPane hgap="10" vgap="10">
+                <columnConstraints>
+                    <ColumnConstraints halignment="RIGHT" minWidth="100"/>
+                    <ColumnConstraints halignment="LEFT" minWidth="200"/>
+                </columnConstraints>
 
-            <TableView fx:id="ticketTable" prefHeight="300" prefWidth="600">
+                <Label text="Customer ID:" GridPane.rowIndex="0" GridPane.columnIndex="0"/>
+                <TextField fx:id="customerIdText" GridPane.rowIndex="0" GridPane.columnIndex="1"/>
+
+                <Label text="Amount:" GridPane.rowIndex="1" GridPane.columnIndex="0"/>
+                <TextField fx:id="amountText" GridPane.rowIndex="1" GridPane.columnIndex="1"/>
+
+                <Label text="Payment Type:" GridPane.rowIndex="2" GridPane.columnIndex="0"/>
+                <ComboBox fx:id="paymentTypeComboBox" GridPane.rowIndex="2" GridPane.columnIndex="1"/>
+            </GridPane>
+
+            <HBox spacing="10" alignment="CENTER_LEFT" padding="10">
+                <Button fx:id="saveButton" text="Save"/>
+                <Button fx:id="editButton" text="Edit"/>
+                <Button fx:id="deleteButton" text="Delete"/>
+            </HBox>
+        </VBox>
+    </center>
+
+    <bottom>
+        <VBox spacing="10" padding="15">
+            <Label text="Tickets List"/>
+            <TableView fx:id="ticketTable">
                 <columns>
-                    <TableColumn fx:id="ticketIdColumn" text="Ticket ID" prefWidth="70"/>
-                    <TableColumn fx:id="eventIdColumn" text="Event ID" prefWidth="70"/>
-                    <TableColumn fx:id="customerIdColumn" text="Customer ID" prefWidth="90"/>
+                    <TableColumn fx:id="ticketIdColumn" text="Ticket ID" prefWidth="80"/>
+                    <TableColumn fx:id="eventIdColumn" text="Event ID" prefWidth="100"/>
+                    <TableColumn fx:id="customerIdColumn" text="Customer ID" prefWidth="100"/>
                     <TableColumn fx:id="seatColumn" text="Seat" prefWidth="80"/>
-                    <TableColumn fx:id="amountColumn" text="Amount" prefWidth="90"/>
-                    <TableColumn fx:id="paymentTypeColumn" text="Payment Type" prefWidth="100"/>
+                    <TableColumn fx:id="amountColumn" text="Amount" prefWidth="100"/>
+                    <TableColumn fx:id="paymentTypeColumn" text="Payment Type" prefWidth="120"/>
                 </columns>
             </TableView>
         </VBox>
-    </center>
+    </bottom>
 
 </BorderPane>
