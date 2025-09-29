@@ -63,10 +63,10 @@ public class EventController implements Initializable {
 
         try {
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/resources/view/TicketPaymentView.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/view/TicketPaymentView.fxml"));
             Scene scene = new Scene(loader.load());
-            TicketPaymentController ticketController = loader.getController();
 
+            TicketPaymentController ticketController = loader.getController();
 
             ticketController.setEventDetails(
                     eventComboBox.getValue(),
@@ -75,12 +75,14 @@ public class EventController implements Initializable {
                     startDatePicker.getValue(),
                     endDatePicker.getValue()
             );
-            //باید ی متو به نامsetEventDetails در تیکن پیمنت کنترلر تعریف کنی که بیاد به جای 2 تا لیبل ایونت ایدی و سیت اطلاعات قبلی رو set کنه
             Stage stage = (Stage) eventComboBox.getScene().getWindow();
             stage.setScene(scene);
             stage.setTitle("Ticket Details");
 
-            // دریافت کنترلر تیکت(????) و ارسال اطلاعات ایونت
+
+
+
+
 
 
         } catch (IOException e) {
@@ -89,7 +91,7 @@ public class EventController implements Initializable {
     }
 
 
-    public void resetForm() throws Exception{
+    public void resetForm(){
         eventComboBox.getSelectionModel().clearSelection();
         artistComboBox.getSelectionModel().clearSelection();
         seatComboBox.getSelectionModel().clearSelection();
