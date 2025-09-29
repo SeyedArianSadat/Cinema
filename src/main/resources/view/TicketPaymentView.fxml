@@ -36,10 +36,8 @@
     </top>
 
     <center>
-        <VBox spacing="10">
-            <padding>
-                <Insets top="15" right="15" left="15"/>
-            </padding>
+        <VBox spacing="10" padding="15" alignment="CENTER_LEFT">
+
             <Label text="Payment Info"/>
 
             <GridPane hgap="10" vgap="10">
