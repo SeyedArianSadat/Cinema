@@ -20,14 +20,15 @@ public class UserRepository implements Repository<User, Integer>, AutoCloseable 
     }
     @Override
     public void save(User user) throws Exception {
+        user.setUserId(ConnectionProvider.getProvider().getNextId("user_seq"));
        preparedStatement=connection.prepareStatement(
-               "insert into USERS(user_id,username,password,role,customer_id) values(?,?,?,?,?)"
+               "insert into USERS(user_id,username,password,role,customer_id) values(USER_SEQ.nextval,?,?,?,?)"
        );
-       preparedStatement.setInt(1,user.getUserId());
-       preparedStatement.setString(2,user.getUsername());
-       preparedStatement.setString(3,user.getPassword());
-       preparedStatement.setString(4,user.getRole());
-       preparedStatement.setInt(5,user.getCustomer().getCustomerId());
+
+       preparedStatement.setString(1,user.getUsername());
+       preparedStatement.setString(2,user.getPassword());
+       preparedStatement.setString(3,user.getRole());
+       preparedStatement.setInt(4,user.getCustomer().getCustomerId());
        preparedStatement.executeUpdate();
     }
 

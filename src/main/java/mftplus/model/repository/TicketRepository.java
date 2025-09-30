@@ -16,15 +16,16 @@ public class TicketRepository implements Repository<Ticket, Integer>, AutoClosea
     }
     @Override
     public void save(Ticket ticket) throws Exception {
+        ticket.setTicketId(ConnectionProvider.getProvider().getNextId("ticket_seq"));
         preparedStatement=connection.prepareStatement(
-                "insert into TICKETS(ticket_id,event_id,customer_id,seat_id,payment_id,ticket_Time) values(?,?,?,?,?,?)"
+                "insert into TICKETS(ticket_id,event_id,customer_id,seat_id,payment_id,ticket_Time) values(TICKET_SEQ.nextval,?,?,?,?,?)"
         );
-        preparedStatement.setInt(1, ticket.getTicketId());
-        preparedStatement.setInt(2,ticket.getEvent().getEventId());
-        preparedStatement.setInt(3,ticket.getCustomer().getCustomerId());
-        preparedStatement.setInt(4,ticket.getSeat().getSeatId());
-        preparedStatement.setInt(5,ticket.getPayment().getPaymentId());
-        preparedStatement.setDate(6,Date.valueOf(ticket.getTicketTime().toLocalDate()));
+
+        preparedStatement.setInt(1,ticket.getEvent().getEventId());
+        preparedStatement.setInt(2,ticket.getCustomer().getCustomerId());
+        preparedStatement.setInt(3,ticket.getSeat().getSeatId());
+        preparedStatement.setInt(4,ticket.getPayment().getPaymentId());
+        preparedStatement.setDate(5,Date.valueOf(ticket.getTicketTime().toLocalDate()));
         preparedStatement.execute();
     }
     @Override

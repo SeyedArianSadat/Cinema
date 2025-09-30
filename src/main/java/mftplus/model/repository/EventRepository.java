@@ -20,17 +20,18 @@ public class EventRepository implements Repository<Event,Integer>,AutoCloseable 
 
     @Override
     public void save(Event event) throws Exception {
+        event.setEventId(ConnectionProvider.getProvider().getNextId("event_seq"));
        preparedStatement=connection.prepareStatement(
                "insert into events (event_id,title,description,event_start_date,event_end_date,duration,saloon_id)" +
-               " values (?,?,?,?,?,?,?)"
+               " values (event_seq.nextval,?,?,?,?,?,?)"
        );
-       preparedStatement.setInt(1,event.getEventId());
-       preparedStatement.setString(2,event.getTitle());
-       preparedStatement.setString(3,event.getDescription());
-       preparedStatement.setTimestamp(4,Timestamp.valueOf(event.getEventStartDate()));
-       preparedStatement.setTimestamp(5,Timestamp.valueOf(event.getEventEndDate()));
-       preparedStatement.setFloat(6,event.getDuration());
-       preparedStatement.setNull(7,java.sql.Types.INTEGER);
+
+       preparedStatement.setString(1,event.getTitle());
+       preparedStatement.setString(2,event.getDescription());
+       preparedStatement.setTimestamp(3,Timestamp.valueOf(event.getEventStartDate()));
+       preparedStatement.setTimestamp(4,Timestamp.valueOf(event.getEventEndDate()));
+       preparedStatement.setFloat(5,event.getDuration());
+       preparedStatement.setNull(6,java.sql.Types.INTEGER);
        preparedStatement.executeUpdate();
 
     }

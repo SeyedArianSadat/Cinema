@@ -22,13 +22,14 @@ public class PaymentRepository implements Repository<Payment, Integer> , AutoClo
 
     @Override
     public void save(Payment payment) throws Exception {
+        payment.setPaymentId(ConnectionProvider.getProvider().getNextId("payment_seq"));
         preparedStatement = connection.prepareStatement("insert into PAYMENTS(PAYMENT_ID, AMOUNT, PAYMENT_TYPE, PAYMENT_TIME)"+
-                " values(?,?,?,?)");
+                " values(PAYMENT_SEQ.nextval,?,?,?)");
 
-        preparedStatement.setInt(1, payment.getPaymentId());
-        preparedStatement.setDouble(2, payment.getAmount());
-        preparedStatement.setString(3, payment.getPaymentType().toString());
-        preparedStatement.setTimestamp(4, Timestamp.valueOf(payment.getPaymentTime()));
+
+        preparedStatement.setDouble(1, payment.getAmount());
+        preparedStatement.setString(2, payment.getPaymentType().toString());
+        preparedStatement.setTimestamp(3, Timestamp.valueOf(payment.getPaymentTime()));
         preparedStatement.execute();
 
     }

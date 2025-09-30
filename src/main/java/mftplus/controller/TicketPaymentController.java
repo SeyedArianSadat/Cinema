@@ -73,7 +73,7 @@ public class TicketPaymentController {
         }
     }
 
-    // ✅ از EventController مقداردهی می‌شود
+
     public void setEventDetails(String eventName, String seatNumber, String saloon,
                                 java.time.LocalDate startDate, java.time.LocalDate endDate) {
         eventIdText.setText(eventName);

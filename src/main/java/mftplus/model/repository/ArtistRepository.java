@@ -20,15 +20,16 @@ public class ArtistRepository implements Repository<Artist,Integer>, AutoCloseab
 
     @Override
     public void save(Artist artist) throws Exception {
+        artist.setArtistId(ConnectionProvider.getProvider().getNextId("artist_seq"));
         preparedStatement=connection.prepareStatement(
                 "insert into artists (artist_id,name,family,category,genre)"+
-                        " values (?,?,?,?,?)"
+                        " values (ARTIST_SEQ.nextval,?,?,?,?)"
         );
-        preparedStatement.setInt(1, artist.getArtistId());
-        preparedStatement.setString(2, artist.getName());
-        preparedStatement.setString(3, artist.getFamily());
-        preparedStatement.setString(4, artist.getCategory());
-        preparedStatement.setString(5, artist.getGenre());
+
+        preparedStatement.setString(1, artist.getName());
+        preparedStatement.setString(2, artist.getFamily());
+        preparedStatement.setString(3, artist.getCategory());
+        preparedStatement.setString(4, artist.getGenre());
         preparedStatement.executeUpdate();
 
     }
