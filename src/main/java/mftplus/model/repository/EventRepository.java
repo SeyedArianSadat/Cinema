@@ -88,6 +88,17 @@ public class EventRepository implements Repository<Event,Integer>,AutoCloseable 
     return event;
 
     }
+    public Event findByTitle(String title) throws Exception {
+        Event event = null;
+        preparedStatement=connection.prepareStatement("select * from events where title=?");
+        preparedStatement.setString(1,title);
+        ResultSet resultSet = preparedStatement.executeQuery();
+        if (resultSet.next()) {
+            event = eventMapper.eventMapper(resultSet);
+        }
+        return event;
+    }
+
 
     @Override
     public void close() throws Exception {

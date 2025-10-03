@@ -52,4 +52,15 @@ public class EventService implements Service<Event, Integer> {
         }
 
     }
+    public Event findByTitle(String title) throws Exception {
+        try (EventRepository eventRepository = new EventRepository()) {
+            Event event=eventRepository.findByTitle(title);
+            if (event != null) {
+                return event;
+            }else {
+                throw  new Exception();
+            }
+        }
+    }
+
 }

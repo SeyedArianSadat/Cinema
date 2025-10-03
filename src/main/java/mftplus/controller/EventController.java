@@ -8,11 +8,11 @@ import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
 
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
-
 
 @Log4j
 public class EventController implements Initializable {
@@ -49,7 +49,13 @@ public class EventController implements Initializable {
     @FXML
     private void goToTicket() {
 
-        if (eventComboBox.getValue() == null || artistComboBox.getValue() == null || saloonComboBox.getValue() == null || seatComboBox.getValue() == null || startDatePicker.getValue() == null || endDatePicker.getValue() == null) {
+        if (eventComboBox.getValue() == null ||
+                artistComboBox.getValue() == null ||
+                saloonComboBox.getValue() == null||
+                seatComboBox.getValue() == null||
+                startDatePicker.getValue() == null ||
+                endDatePicker.getValue() == null)
+        {
             Alert alert = new Alert(Alert.AlertType.ERROR, "Please fill in all fields!", ButtonType.OK);
             alert.show();
             return;
@@ -68,8 +74,7 @@ public class EventController implements Initializable {
 
             TicketPaymentController ticketController = loader.getController();
 
-            ticketController.setEventDetails(
-                    eventComboBox.getValue(),
+            ticketController.setEventDetails( eventComboBox.getValue(),
                     seatComboBox.getValue(),
                     saloonComboBox.getValue(),
                     startDatePicker.getValue(),

@@ -74,7 +74,7 @@ public class TicketPaymentController {
     }
 
 
-    public void setEventDetails(String eventName, String seatNumber, String saloon,
+    public void setEventDetails(String eventName,String seatNumber, String saloon,
                                 java.time.LocalDate startDate, java.time.LocalDate endDate) {
         eventIdText.setText(eventName);
         seatText.setText(seatNumber);
@@ -93,9 +93,9 @@ public class TicketPaymentController {
             paymentRepository.save(payment);
 
             Ticket ticket = Ticket.builder()
-                    .event(EventService.getService().findById(Integer.parseInt(eventIdText.getText())))
+                    .event(EventService.getService().findByTitle(eventIdText.getText()))
                     .customer(CustomerService.getService().findById(Integer.parseInt(customerIdText.getText())))
-                    .seat(SeatService.getService().findById(Integer.parseInt(seatText.getText())))
+                    .seat(SeatService.getService().findBySeatNumber(seatText.getText()))
                     .payment(payment)
                     .ticketTime(LocalDateTime.now())
                     .build();
@@ -123,9 +123,9 @@ public class TicketPaymentController {
 
             Ticket ticket = Ticket.builder()
                     .ticketId(id)
-                    .event(EventService.getService().findById(Integer.parseInt(eventIdText.getText())))
+                    .event(EventService.getService().findByTitle(eventIdText.getText()))
                     .customer(CustomerService.getService().findById(Integer.parseInt(customerIdText.getText())))
-                    .seat(SeatService.getService().findById(Integer.parseInt(seatText.getText())))
+                    .seat(SeatService.getService().findBySeatNumber(seatText.getText()))
                     .payment(payment)
                     .ticketTime(LocalDateTime.now())
                     .build();
@@ -163,7 +163,7 @@ public class TicketPaymentController {
             if (ticket == null) return;
 
             ticketIdText.setText(String.valueOf(ticket.getTicketId()));
-            eventIdText.setText(String.valueOf(ticket.getEvent().getEventId()));
+            eventIdText.setText((ticket.getEvent().getTitle()));
             customerIdText.setText(String.valueOf(ticket.getCustomer().getCustomerId()));
             seatText.setText(ticket.getSeat().getSeatNumber());
             saloonText.setText(ticket.getSeat().getSaloon().getName());
@@ -196,7 +196,7 @@ public class TicketPaymentController {
         ticketIdColumn.setCellValueFactory(new PropertyValueFactory<>("ticketId"));
 
         eventIdColumn.setCellValueFactory(data ->
-                new SimpleStringProperty(String.valueOf(data.getValue().getEvent().getEventId())));
+                new SimpleStringProperty(data.getValue().getEvent().getTitle()));
 
         customerIdColumn.setCellValueFactory(data ->
                 new SimpleStringProperty(String.valueOf(data.getValue().getCustomer().getCustomerId())));

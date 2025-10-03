@@ -1,5 +1,6 @@
 package mftplus.model.repository;
 
+import mftplus.model.entity.Event;
 import mftplus.model.entity.Seat;
 import mftplus.model.tools.ConnectionProvider;
 import mftplus.model.tools.SeatMapper;
@@ -72,6 +73,16 @@ public class SeatRepository implements Repository<Seat, Integer> ,AutoCloseable{
         preparedStatement.setInt(1, id);
         ResultSet resultSet = preparedStatement.executeQuery();
 
+        if (resultSet.next()) {
+            seat = seatMapper.seatMapper(resultSet);
+        }
+        return seat;
+    }
+    public Seat findBySeatNumber(String seatNumber) throws Exception {
+        Seat seat = null;
+        preparedStatement = connection.prepareStatement("select * from SEATS where SEAT_NUMBER=?");
+        preparedStatement.setString(1, seatNumber);
+        ResultSet resultSet = preparedStatement.executeQuery();
         if (resultSet.next()) {
             seat = seatMapper.seatMapper(resultSet);
         }

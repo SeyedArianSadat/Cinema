@@ -50,4 +50,14 @@ public class SeatService implements Service<Seat, Integer>{
             return seatRepository.findById(id);
         }
     }
+    public Seat findBySeatNumber(String seatNumber) throws Exception {
+        try(SeatRepository seatRepository = new SeatRepository()) {
+            Seat seat=seatRepository.findBySeatNumber(seatNumber);
+            if (seat != null){
+                return seat;
+            }else {
+                throw new Exception();
+            }
+        }
+    }
 }
