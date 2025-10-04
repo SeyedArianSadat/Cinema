@@ -42,6 +42,7 @@ public class CustomerRepository implements Repository<Customer,Integer>,AutoClos
         preparedStatement.setString(2, customer.getFamily());
         preparedStatement.setString(3, customer.getPhoneNumber());
         preparedStatement.setInt(4, customer.getAge());
+        preparedStatement.setInt(5, customer.getCustomerId());
         preparedStatement.executeUpdate();
 
     }

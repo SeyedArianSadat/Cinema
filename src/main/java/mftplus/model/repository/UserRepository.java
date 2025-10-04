@@ -22,24 +22,26 @@ public class UserRepository implements Repository<User, Integer>, AutoCloseable 
     public void save(User user) throws Exception {
         user.setUserId(ConnectionProvider.getProvider().getNextId("user_seq"));
        preparedStatement=connection.prepareStatement(
-               "insert into USERS(user_id,username,password,role,customer_id) values(USER_SEQ.nextval,?,?,?,?)"
+               "insert into USERS(user_id,username,password,role,customer_id) values(?,?,?,?,?)"
        );
-
-       preparedStatement.setString(1,user.getUsername());
-       preparedStatement.setString(2,user.getPassword());
-       preparedStatement.setString(3,user.getRole());
-       preparedStatement.setInt(4,user.getCustomer().getCustomerId());
+       preparedStatement.setInt(1,user.getUserId());
+       preparedStatement.setString(2,user.getUsername());
+       preparedStatement.setString(3,user.getPassword());
+       preparedStatement.setString(4,user.getRole());
+       preparedStatement.setInt(5,user.getCustomer().getCustomerId());
        preparedStatement.executeUpdate();
     }
 
     @Override
     public void edit(User user) throws Exception {
         preparedStatement=connection.prepareStatement(
-                "update users set username=?,password=?,role=? where user_id=?"
+                "update users set username=?,password=?,role=?,CUSTOMER_ID=? where user_id=?"
         );
-        preparedStatement.setString(1,user.getUsername());
-        preparedStatement.setString(2,user.getPassword());
-        preparedStatement.setString(3,user.getRole());
+        preparedStatement.setInt(1,user.getUserId());
+        preparedStatement.setString(2,user.getUsername());
+        preparedStatement.setString(3,user.getPassword());
+        preparedStatement.setString(4,user.getRole());
+        preparedStatement.setInt(5,user.getCustomer().getCustomerId());
         preparedStatement.executeUpdate();
 
     }

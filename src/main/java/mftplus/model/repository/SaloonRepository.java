@@ -44,6 +44,7 @@ public class SaloonRepository implements Repository<Saloon, Integer> , AutoClose
         preparedStatement.setString(2, saloon.getAddress());
         preparedStatement.setInt(3, saloon.getCapacity());
         preparedStatement.setInt(4,saloon.getManager().getUserId());
+        preparedStatement.setInt(5,saloon.getSaloonId());
         preparedStatement.execute();
 
 

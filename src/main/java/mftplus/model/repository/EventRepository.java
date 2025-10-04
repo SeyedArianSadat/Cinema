@@ -47,6 +47,7 @@ public class EventRepository implements Repository<Event,Integer>,AutoCloseable 
         preparedStatement.setTimestamp(4,Timestamp.valueOf(event.getEventEndDate()));
         preparedStatement.setFloat(5,event.getDuration());
         preparedStatement.setNull(6,java.sql.Types.INTEGER);
+        preparedStatement.setInt(7,event.getEventId());
         preparedStatement.executeUpdate();
 
     }

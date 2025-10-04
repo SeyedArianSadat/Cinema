@@ -40,6 +40,7 @@ public class SeatRepository implements Repository<Seat, Integer> ,AutoCloseable{
         preparedStatement.setInt(1, seat.getSaloon().getSaloonId());
         preparedStatement.setString(2, seat.getSeatNumber());
         preparedStatement.setBoolean(3, seat.isAvailable());
+        preparedStatement.setInt(4, seat.getSeatId());
         preparedStatement.execute();
 
     }

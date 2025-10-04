@@ -41,6 +41,7 @@ public class PaymentRepository implements Repository<Payment, Integer> , AutoClo
         preparedStatement.setDouble(1, payment.getAmount());
         preparedStatement.setString(2, payment.getPaymentType().toString());
         preparedStatement.setTimestamp(3, Timestamp.valueOf(payment.getPaymentTime()));
+        preparedStatement.setInt(4, payment.getPaymentId());
         preparedStatement.execute();
     }
 

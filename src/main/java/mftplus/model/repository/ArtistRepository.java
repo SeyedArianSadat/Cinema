@@ -43,6 +43,7 @@ public class ArtistRepository implements Repository<Artist,Integer>, AutoCloseab
         preparedStatement.setString(2, artist.getFamily());
         preparedStatement.setString(3, artist.getCategory());
         preparedStatement.setString(4, artist.getGenre());
+        preparedStatement.setInt(5, artist.getArtistId());
         preparedStatement.executeUpdate();
 
     }
