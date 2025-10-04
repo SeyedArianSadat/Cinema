@@ -38,6 +38,7 @@ public class TicketRepository implements Repository<Ticket, Integer>, AutoClosea
         preparedStatement.setInt(3,ticket.getSeat().getSeatId());
         preparedStatement.setInt(4,ticket.getPayment().getPaymentId());
         preparedStatement.setDate(5,Date.valueOf(ticket.getTicketTime().toLocalDate()));
+        preparedStatement.setInt(6,ticket.getTicketId());
         preparedStatement.execute();
     }
     @Override
