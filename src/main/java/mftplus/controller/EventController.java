@@ -7,6 +7,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import lombok.extern.log4j.Log4j;
+import mftplus.model.entity.*;
+import mftplus.model.service.*;
 
 
 import java.io.IOException;
@@ -28,16 +30,27 @@ public class EventController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        try {
+        for (Event event : EventService.getService().findAll()) {
+            eventComboBox.getItems().add(event.getTitle());
+        };
 
-        eventComboBox.getItems().addAll("Movie Night", "Concert", "Play");
-        artistComboBox.getItems().addAll("Artist A", "Artist B");
-        saloonComboBox.getItems().addAll("Saloon 1", "Saloon 2");
-        seatComboBox.getItems().addAll("A1", "A2", "B1", "B2");
+        for (Artist artist : ArtistService.getService().findAll()) {
+            artistComboBox.getItems().add(artist.getName());
+        }
+
+        for (Saloon saloon : SaloonService.getService().findAll()) {
+            saloonComboBox.getItems().add(saloon.getName());
+        }
+        for(Seat seat : SeatService.getService().findAll()) {
+            seatComboBox.getItems().add(seat.getSeatNumber());
+        }
         getTicketButton.setOnAction(e -> goToTicket());
 
-        try {
+
             resetForm();
         } catch (Exception e) {
+            e.printStackTrace();
             Alert alert = new Alert(Alert.AlertType.ERROR,"error loading data " + e.getMessage(), ButtonType.OK);
             alert.show();
         }

@@ -7,7 +7,7 @@ public class ArtistMapper {
     public Artist artistMapper(ResultSet resultSet) throws Exception {
         return Artist
                 .builder()
-                .artistId(resultSet.getInt("artistId"))
+                .artistId(resultSet.getInt("artist_id"))
                 .name(resultSet.getString("name"))
                 .family(resultSet.getString("family"))
                 .category(resultSet.getString("category"))

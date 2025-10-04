@@ -39,7 +39,7 @@ public class EventRepository implements Repository<Event,Integer>,AutoCloseable 
     @Override
     public void edit(Event event) throws Exception {
         preparedStatement=connection.prepareStatement(
-                "update events set title=?,description=?,event_start_time=?,event_end_time=?,duration=?,saloon_id=? where events_id=?"
+                "update events set title=?,description=?,event_start_date=?,event_end_date=?,duration=?,saloon_id=? where events_id=?"
         );
         preparedStatement.setString(1,event.getTitle());
         preparedStatement.setString(2,event.getDescription());
@@ -66,7 +66,7 @@ public class EventRepository implements Repository<Event,Integer>,AutoCloseable 
     public List<Event> findAll() throws Exception {
         List<Event> eventList = new ArrayList<>();
 
-        preparedStatement = connection.prepareStatement("select * from events order by event_start_time");
+        preparedStatement = connection.prepareStatement("select * from events order by event_start_date");
         ResultSet resultSet = preparedStatement.executeQuery();
 
         while (resultSet.next()) {
