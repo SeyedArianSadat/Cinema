@@ -1,6 +1,6 @@
 package mftplus.model.repository;
 
-import mftplus.model.entity.Event;
+
 import mftplus.model.entity.Seat;
 import mftplus.model.tools.ConnectionProvider;
 import mftplus.model.tools.SeatMapper;
