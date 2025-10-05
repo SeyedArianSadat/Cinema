@@ -24,6 +24,7 @@ public class UserRepository implements Repository<User, Integer>, AutoCloseable 
        preparedStatement=connection.prepareStatement(
                "insert into USERS(user_id,username,password,role,customer_id) values(?,?,?,?,?)"
        );
+
        preparedStatement.setInt(1,user.getUserId());
        preparedStatement.setString(2,user.getUsername());
        preparedStatement.setString(3,user.getPassword());
@@ -37,11 +38,11 @@ public class UserRepository implements Repository<User, Integer>, AutoCloseable 
         preparedStatement=connection.prepareStatement(
                 "update users set username=?,password=?,role=?,CUSTOMER_ID=? where user_id=?"
         );
-        preparedStatement.setInt(1,user.getUserId());
         preparedStatement.setString(2,user.getUsername());
         preparedStatement.setString(3,user.getPassword());
         preparedStatement.setString(4,user.getRole());
         preparedStatement.setInt(5,user.getCustomer().getCustomerId());
+        preparedStatement.setInt(1,user.getUserId());
         preparedStatement.executeUpdate();
 
     }

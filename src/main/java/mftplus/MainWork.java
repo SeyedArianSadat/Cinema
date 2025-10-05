@@ -44,6 +44,7 @@ public class MainWork {
             saloon.setManager(manager);
 
 
+
             saloonRepository.save(saloon);
 
 
@@ -74,26 +75,24 @@ public class MainWork {
             eventRepository.save(event);
 
 
-
-            manager.setUserId(1);
-            manager.setUsername("admin");
-            manager.setPassword("1234");
-            manager.setRole("Manager");
-
-            saloon.setManager(manager);
-
-            userRepository.save(manager);
-
-            saloonRepository.edit(saloon);
-
             Customer customer = new Customer();
             customer.setCustomerId(10);
             customer.setName("Hanieh");
             customer.setFamily("Hosseinzadeh");
             customer.setPhoneNumber("0912000000");
             customer.setAge(25);
-
             customerRepository.save(customer);
+
+            manager.setUserId(1);
+            manager.setUsername("admin");
+            manager.setPassword("1234");
+            manager.setRole("Manager");
+
+
+         //   userRepository.save(manager);
+
+         //   saloonRepository.edit(saloon);
+
 
 
             Payment payment = new Payment();

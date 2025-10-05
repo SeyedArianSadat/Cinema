@@ -20,15 +20,15 @@ public class CustomerRepository implements Repository<Customer,Integer>,AutoClos
     @Override
     public void save(Customer customer) throws Exception {
         customer.setCustomerId(ConnectionProvider.getProvider().getNextId("customer_seq"));
-        preparedStatement=connection.prepareStatement(
-                "insert into customers(customer_id,name,family,phone_number,age)" +
-                "values(CUSTOMER_SEQ.nextval,?,?,?,?)"
-        );
 
-        preparedStatement.setString(1, customer.getName());
-        preparedStatement.setString(2, customer.getFamily());
-        preparedStatement.setString(3, customer.getPhoneNumber());
-        preparedStatement.setInt(4, customer.getAge());
+        preparedStatement=connection.prepareStatement(
+                "insert into customers(customer_id,name,family,phone_number,age) values(?,?,?,?,?)");
+
+         preparedStatement.setInt(1, customer.getCustomerId());
+        preparedStatement.setString(2, customer.getName());
+        preparedStatement.setString(3, customer.getFamily());
+        preparedStatement.setString(4, customer.getPhoneNumber());
+        preparedStatement.setInt(5, customer.getAge());
         preparedStatement.executeUpdate();
 
     }
