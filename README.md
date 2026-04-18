@@ -9,8 +9,6 @@ Manage saloon & seats
 
 Event scheduling
 
-Ticketing with QR codes
-
 Role-based user management
 
 Database Oracle
